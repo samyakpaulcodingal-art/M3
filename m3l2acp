@@ -1,0 +1,50 @@
+# Assignment: File Handling - Operations Part 1
+# Goal: To know how to read files in different ways using Python.
+
+# -------------------------------------------------------------
+# SETUP: Let's create a sample file first so we have something to read!
+# -------------------------------------------------------------
+with open("sample.txt", "w") as setup_file:
+    setup_file.write("Line 1: Python is fun!\n")
+    setup_file.write("Line 2: File handling is easy.\n")
+    setup_file.write("Line 3: Keep practicing every day!\n")
+
+
+# =============================================================
+# METHOD 1: Reading the entire file at once using read()
+# =============================================================
+print("--- Method 1: Using file.read() ---")
+# Good for: Snatching the whole file content as a single giant string.
+
+with open("sample.txt", "r") as file:
+    all_content = file.read()
+    print(all_content)
+
+
+# =============================================================
+# METHOD 2: Reading line by line using readline()
+# =============================================================
+print("--- Method 2: Using file.readline() ---")
+# Good for: Pulling exactly one line at a time. Each call moves to the next line.
+
+with open("sample.txt", "r") as file:
+    first_line = file.readline()
+    second_line = file.readline()
+    
+    # .strip() removes the extra hidden '\n' newline at the end of the text files
+    print("First line read:", first_line.strip())
+    print("Second line read:", second_line.strip())
+print("\n")  # Just an extra space for clean formatting
+
+
+# =============================================================
+# METHOD 3: Reading efficiently with a 'for' loop (Best Practice)
+# =============================================================
+print("--- Method 3: Using a For Loop ---")
+# Good for: Processing large files sequentially without overloading computer memory.
+
+with open("sample.txt", "r") as file:
+    line_number = 1
+    for line in file:
+        print(f"Row {line_number}: {line.strip()}")
+        line_number += 1
