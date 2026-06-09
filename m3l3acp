@@ -1,0 +1,42 @@
+# Assignment: File Handling - Operations Part 2
+# Goal: To know how to perform different operations on a file using Python.
+
+# =============================================================
+# OPERATION 1: Writing a list of strings at once using writelines()
+# =============================================================
+print("--- Operation 1: Writing with writelines() ---")
+lines_to_write = [
+    "First line of our project.\n",
+    "Second line of our project.\n",
+    "Third line of our project.\n"
+]
+
+# Writing multiple lines from a list without needing a loop
+with open("operations_demo.txt", "w") as file:
+    file.writelines(lines_to_write)
+print("Multiple lines written successfully using writelines().\n")
+
+
+# =============================================================
+# OPERATION 2: Understanding the File Cursor with tell() and seek()
+# =============================================================
+print("--- Operation 2: Tracking and moving the file cursor ---")
+
+with open("operations_demo.txt", "r") as file:
+    # file.tell() tells us where the cursor is currently sitting (measured in bytes)
+    print(f"Initial cursor position: {file.tell()}") 
+    
+    # Let's read the first line
+    first_line = file.readline()
+    print(f"Read line: {first_line.strip()}")
+    
+    # See how the cursor moved forward after reading
+    print(f"Cursor position after reading one line: {file.tell()}")
+    
+    # file.seek(0) resets the cursor back to the very beginning of the file!
+    print("Moving cursor back to the start using seek(0)...")
+    file.seek(0)
+    print(f"Cursor position after seek(0): {file.tell()}")
+    
+    # Read again from the reset position
+    print(f"Read line again: {file.readline().strip
