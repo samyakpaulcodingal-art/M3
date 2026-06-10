@@ -1,0 +1,69 @@
+import tkinter as tk
+import random
+
+# --- Game Logic ---
+
+def play(user_choice):
+    # 1. Computer makes a random choice
+    choices = ["Rock", "Paper", "Scissors"]
+    computer_choice = random.choice(choices)
+    
+    # 2. Determine the winner
+    if user_choice == computer_choice:
+        result = "It's a Tie!"
+        color = "orange"
+    elif (user_choice == "Rock" and computer_choice == "Scissors") or \
+         (user_choice == "Paper" and computer_choice == "Rock") or \
+         (user_choice == "Scissors" and computer_choice == "Paper"):
+        result = "You Win! 🎉"
+        color = "green"
+    else:
+        result = "Computer Wins! 🤖"
+        color = "red"
+        
+    # 3. Create a Toplevel Pop-up Window to show the result (Activity 3)
+    show_result_popup(user_choice, computer_choice, result, color)
+
+def show_result_popup(user, computer, outcome, outcome_color):
+    # Create the pop-up window
+    popup = tk.Toplevel(root)
+    popup.title("Game Result!")
+    popup.geometry("300x200")
+    
+    # Use grid layout with padding to make the popup look nice
+    tk.Label(popup, text=f"Your Choice: {user}", font=("Arial", 11)).grid(row=0, column=0, padx=20, pady=10, sticky="w")
+    tk.Label(popup, text=f"Computer: {computer}", font=("Arial", 11)).grid(row=1, column=0, padx=20, pady=10, sticky="w")
+    
+    # Large colored outcome label
+    outcome_label = tk.Label(popup, text=outcome, font=("Arial", 14, "bold"), fg=outcome_color)
+    outcome_label.grid(row=2, column=0, padx=20, pady=15)
+    
+    # Close button for the popup
+    close_btn = tk.Button(popup, text="Play Again", command=popup.destroy, bg="#2196F3", fg="white")
+    close_btn.grid(row=3, column=0, padx=20, pady=5)
+
+# --- Main UI Setup ---
+
+root = tk.Tk()
+root.title("Rock Paper Scissors")
+root.geometry("400x220")
+
+# Header Layout (Row 0)
+header = tk.Label(root, text="Make your move!", font=("Arial", 14, "bold"))
+header.grid(row=0, column=0, columnspan=3, padx=10, pady=20)
+
+# Game Choice Buttons (Row 1, Columns 0, 1, 2 with Padding)
+rock_btn = tk.Button(root, text="🪨 Rock", font=("Arial", 12), width=10, bg="#f0f0f0", command=lambda: play("Rock"))
+rock_btn.grid(row=1, column=0, padx=15, pady=10)
+
+paper_btn = tk.Button(root, text="📄 Paper", font=("Arial", 12), width=10, bg="#f0f0f0", command=lambda: play("Paper"))
+paper_btn.grid(row=1, column=1, padx=15, pady=10)
+
+scissors_btn = tk.Button(root, text="✂️ Scissors", font=("Arial", 12), width=10, bg="#f0f0f0", command=lambda: play("Scissors"))
+scissors_btn.grid(row=1, column=2, padx=15, pady=10)
+
+# Footer Instruction (Row 2)
+footer = tk.Label(root, text="Click a button to match against the computer.", font=("Arial", 9, "italic"), fg="gray")
+footer.grid(row=2, column=0, columnspan=3, padx=10, pady=20)
+
+root.mainloop()
